@@ -50,8 +50,3 @@ RUN mkdir -p /var/log/sql/ && echo -n > /var/log/sql/sql_error.log && chown -R w
     && a2enmod info remoteip && a2enconf common remoteip \
     && sed -i -e "s/#Require ip 192.0.2.0\/24/Require ip 10.0.0.0\/8\n\t\tRequire ip 172.16.0.0\/12\n\t\tRequire ip 192.168.0.0\/16/g" /etc/apache2/mods-available/info.conf \
     && sed -i -e "s/#Require ip 192.0.2.0\/24/Require ip 10.0.0.0\/8\n\t\tRequire ip 172.16.0.0\/12\n\t\tRequire ip 192.168.0.0\/16/g" /etc/apache2/mods-available/status.conf
-
-
-# Auto-health check to the root page
-HEALTHCHECK --interval=5s --timeout=2s \
-  CMD curl -f -A "Docker-HealthCheck/v.x (https://docs.docker.com/engine/reference/builder/#healthcheck)" http://localhost/ || exit 1
